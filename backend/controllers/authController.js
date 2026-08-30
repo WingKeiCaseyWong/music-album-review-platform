@@ -15,10 +15,17 @@ const registerUser = async (req, res) => {
     const { username, email, phoneNumber, password } = req.body;
 
     try {
-        // Check all required fields from Figma
+        // Check all required fields
         if (!username || !email || !phoneNumber || !password) {
             return res.status(400).json({
                 message: 'Please fill in all fields'
+            });
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({
+                message: 'Invalid email format'
             });
         }
 

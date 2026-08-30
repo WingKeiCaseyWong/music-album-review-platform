@@ -8,7 +8,7 @@ const addAlbum = async (req, res) => {
         // 2. Check required fields
         if (!title || !artist || !releaseDate ||!description) {
             return res.status(400).json({
-                message: 'Title, artist and release date are required'
+                message: 'Title, artist, release date and description are required'
             });
         }
 

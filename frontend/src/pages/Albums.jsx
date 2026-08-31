@@ -24,11 +24,11 @@ const Albums = () => {
 
             {albums.map((album) => (
                 <div key={album._id}>
-                    <h2>
+                    <h3>
                     <Link to={`/albums/${album._id}`}>
                         {album.title}
                     </Link>
-                </h2>
+                </h3>
                     <p>{album.artist}</p>
                     <p>{album.releaseDate}</p>
                 </div>

@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import axiosInstance from '../axiosConfig';
 import { useAuth } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 
 const Admin = () => {
     const { user } = useAuth();
+    const [message, setMessage] = useState('');
     const [formData, setFormData] = useState({
         title: '',
         artist: '',
@@ -23,6 +25,7 @@ const Admin = () => {
             });
 
             console.log('Album added successfully:', response.data);
+            setMessage('Album added successfully!');
         } catch (error) {
             console.error('Failed to add album:', error);
         }
@@ -31,7 +34,7 @@ const Admin = () => {
     return (
         <div>
             <h1>Admin Dashboard</h1>
-
+            <Link to="/">View Albums</Link>
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"

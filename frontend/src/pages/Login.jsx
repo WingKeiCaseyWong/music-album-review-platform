@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import axiosInstance from '../axiosConfig';
+import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
+    const { login } = useAuth();
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -12,6 +14,8 @@ const Login = () => {
 
         try {
             const response = await axiosInstance.post('/api/auth/login', formData);
+            login(response.data);
+            console.log('User role:', response.data.role);
             console.log('Login successful:', response.data);
         } catch (error) {
             console.error('Login failed:', error);

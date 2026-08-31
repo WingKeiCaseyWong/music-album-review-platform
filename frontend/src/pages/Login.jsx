@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import axiosInstance from '../axiosConfig';
 import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+
 
 const Login = () => {
+    const navigate = useNavigate();
     const { login } = useAuth();
     const [formData, setFormData] = useState({
         email: '',
@@ -17,6 +20,9 @@ const Login = () => {
             login(response.data);
             console.log('User role:', response.data.role);
             console.log('Login successful:', response.data);
+            if (response.data.role === 'admin') {
+            navigate('/admin');
+        }
         } catch (error) {
             console.error('Login failed:', error);
         }

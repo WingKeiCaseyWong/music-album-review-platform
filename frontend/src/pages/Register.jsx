@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import axiosInstance from '../axiosConfig';
 
 const Register = () => {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -15,6 +18,7 @@ const Register = () => {
         try {
             const response = await axiosInstance.post('/api/auth/register', formData);
             console.log('Registration successful:', response.data);
+            navigate('/login');
         } catch (error) {
             console.error('Registration failed:', error);
         }
@@ -67,6 +71,10 @@ const Register = () => {
 
                 <button type="submit">Register</button>
             </form>
+
+            <p>
+                Already have an account? <Link to="/login">Login</Link>
+            </p>
         </div>
     );
 };

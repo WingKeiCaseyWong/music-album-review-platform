@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axiosInstance from '../axiosConfig';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 
 const Login = () => {
@@ -21,8 +21,10 @@ const Login = () => {
             console.log('User role:', response.data.role);
             console.log('Login successful:', response.data);
             if (response.data.role === 'admin') {
-            navigate('/admin');
-        }
+                navigate('/admin');
+            } else {
+                navigate('/');
+            }
         } catch (error) {
             console.error('Login failed:', error);
         }
@@ -55,6 +57,10 @@ const Login = () => {
 
                 <button type="submit">Login</button>
             </form>
+            <p>
+                Don't have an account? <Link to="/register">Register</Link>
+            </p>
+
         </div>
     );
 };

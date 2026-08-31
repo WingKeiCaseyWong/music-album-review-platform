@@ -6,7 +6,8 @@ const Admin = () => {
         title: '',
         artist: '',
         releaseDate: '',
-        description: ''
+        description: '',
+        coverImage: ''
     });
 
     const handleSubmit = async (e) => {
@@ -14,6 +15,7 @@ const Admin = () => {
 
         try {
             const response = await axiosInstance.post('/api/albums', formData);
+
             console.log('Album added successfully:', response.data);
         } catch (error) {
             console.error('Failed to add album:', error);
@@ -60,6 +62,16 @@ const Admin = () => {
                     onChange={(e) => setFormData({
                         ...formData,
                         description: e.target.value
+                    })}
+                />
+
+                <input
+                    type="text"
+                    placeholder="Cover Image URL"
+                    value={formData.coverImage}
+                    onChange={(e) => setFormData({
+                        ...formData,
+                        coverImage: e.target.value
                     })}
                 />
 

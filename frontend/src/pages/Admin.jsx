@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import axiosInstance from '../axiosConfig';
+import { useAuth } from '../context/AuthContext';
 
 const Admin = () => {
+    const { user } = useAuth();
     const [formData, setFormData] = useState({
         title: '',
         artist: '',
@@ -14,7 +16,11 @@ const Admin = () => {
         e.preventDefault();
 
         try {
-            const response = await axiosInstance.post('/api/albums', formData);
+            const response = await axiosInstance.post('/api/albums', formData, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
+            });
 
             console.log('Album added successfully:', response.data);
         } catch (error) {

@@ -1,9 +1,15 @@
+import Albums from './pages/Albums';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import AlbumDetails from './pages/AlbumDetails';
+
 function App() {
     return (
-        <div>
-            <h1>MARP</h1>
-            <p>Music Album Review Platform</p>
-        </div>
+        <Router>
+            <Routes>
+                <Route path="/" element={<Albums />} />
+                <Route path="/albums/:id" element={<AlbumDetails />} />
+            </Routes>
+        </Router>
     );
 }
 

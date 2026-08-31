@@ -51,7 +51,49 @@ const getReviewsByAlbum = async (req, res) => {
     }
 };
 
+const updateReview = async (req, res) => {
+    try {
+        const review = await Review.findById(req.params.id);
+
+        if (!review) {
+            return res.status(404).json({
+                message: 'Review not found'
+            });
+        }
+
+        if (review.userId.toString() !== req.user._id.toString()) {
+            return res.status(403).json({
+                message: 'You can only edit your own review'
+            });
+        }
+
+        const { comment } = req.body;
+
+        if (!comment) {
+            return res.status(400).json({
+                message: 'Comment is required'
+            });
+        }
+
+        review.comment = comment;
+
+        const updatedReview = await review.save();
+
+        return res.status(200).json({
+            message: 'Review updated successfully',
+            review: updatedReview
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Server error',
+            error: error.message
+        });
+    }
+};
+
 module.exports = {
     addReview,
-    getReviewsByAlbum
+    getReviewsByAlbum,
+    updateReview
 };
